@@ -101,6 +101,25 @@ git push -u origin main
 
 Sau 2-3 phút Action chạy xong, trang sẽ có ở `https://yourname.github.io/foodvn/`.
 
+## Thêm ảnh thật cho món ăn
+
+Site fallback ảnh AI (Pollinations.ai) khi chưa có ảnh local. Để thay bằng ảnh thật, chỉ cần drop file vào đúng thư mục theo convention:
+
+```
+public/images/
+├── hero.jpg                    # Banner trang chủ
+├── regions/{bac,trung,nam}.jpg # Banner 3 miền
+└── recipes/<slug>.jpg          # Ảnh từng món, tên file = slug recipe
+```
+
+Đuôi hỗ trợ: `.jpg`, `.jpeg`, `.png`, `.webp`, `.avif`. Helper tự dò file — chưa có thì dùng AI fallback. Chi tiết tên file 17 món xem [public/images/README.md](public/images/README.md).
+
+Override per-recipe bằng frontmatter:
+```yaml
+image: https://example.com/anh.jpg   # URL ngoài
+image: /foodvn/images/recipes/pho-special.jpg  # đường dẫn khác
+```
+
 ## Thêm công thức mới
 
 Tạo file Markdown mới trong `src/content/recipes/<slug>.md`:

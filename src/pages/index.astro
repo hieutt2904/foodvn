@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RecipeCard from '../components/RecipeCard.astro';
 import { REGION_LABELS, MEAL_LABELS } from '../content.config';
-import { pollinationsUrl, recipeImageUrl } from '../utils/images';
+import { heroImageUrl, recipeImageUrl, regionImageUrl } from '../utils/images';
 
 const recipes = await getCollection('recipes');
 const featured = recipes.filter((r) => r.data.featured);
@@ -17,24 +17,11 @@ const byRegion = {
 
 const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mieng', 'an-vat'];
 
-const heroImage = pollinationsUrl(
-  'Vietnamese cuisine feast on rustic wooden table, top-down flat lay, pho, banh mi, fresh spring rolls, bun cha, banh xeo, traditional ceramic bowls and chopsticks, vibrant herbs and chili peppers, market style abundance',
-  { width: 1920, height: 1080, seed: 71429 },
-);
-
+const heroImage = heroImageUrl();
 const regionImages = {
-  bac: pollinationsUrl(
-    'Northern Vietnamese cuisine spread, steaming pho bo bowl and bun cha with grilled pork, Hanoi old quarter street food, autumn light',
-    { width: 800, height: 600, seed: 11111 },
-  ),
-  trung: pollinationsUrl(
-    'Central Vietnamese cuisine spread, fiery red bun bo Hue and yellow mi Quang on table, Hue imperial cuisine vibe, dramatic red and orange tones',
-    { width: 800, height: 600, seed: 22222 },
-  ),
-  nam: pollinationsUrl(
-    'Southern Vietnamese cuisine spread, com tam broken rice plate and banh mi sandwich, Saigon street food, tropical bright sunlight, coconut and chili',
-    { width: 800, height: 600, seed: 33333 },
-  ),
+  bac: regionImageUrl('bac'),
+  trung: regionImageUrl('trung'),
+  nam: regionImageUrl('nam'),
 };
 ---
 
