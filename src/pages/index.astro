@@ -1,0 +1,161 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+import { REGION_LABELS, MEAL_LABELS } from '../content.config';
+
+const recipes = await getCollection('recipes');
+const featured = recipes.filter((r) => r.data.featured);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const byRegion = {
+  bac: recipes.filter((r) => r.data.region === 'bac'),
+  trung: recipes.filter((r) => r.data.region === 'trung'),
+  nam: recipes.filter((r) => r.data.region === 'nam'),
+};
+
+const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mieng', 'an-vat'];
+---
+
+<BaseLayout title="FoodVN — Cẩm nang món ăn Việt Nam">
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-100 via-amber-50 to-rose-100 dark:from-stone-900 dark:via-stone-950 dark:to-brand-950"></div>
+    <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+      <div class="max-w-3xl">
+        <p class="mb-3 text-sm font-medium uppercase tracking-widest text-brand-600 dark:text-brand-400">
+          Cẩm nang ẩm thực Việt
+        </p>
+        <h1 class="font-display text-5xl font-bold leading-tight text-stone-900 sm:text-6xl dark:text-stone-100">
+          Hương vị <span class="text-brand-600 dark:text-brand-400">ba miền</span><br />trong căn bếp của bạn
+        </h1>
+        <p class="mt-6 text-lg text-stone-700 sm:text-xl dark:text-stone-300">
+          {recipes.length} công thức món ăn Việt Nam được biên soạn cẩn thận — từ phở Hà Nội,
+          bún bò Huế đến cơm tấm Sài Gòn. Đầy đủ nguyên liệu, từng bước và mẹo bếp.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={`${base}/search`}
+            class="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 font-medium text-white shadow-lg shadow-brand-600/30 transition hover:bg-brand-700"
+          >
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="7" />
+              <path stroke-linecap="round" d="M21 21l-4.35-4.35" />
+            </svg>
+            Tìm món ăn
+          </a>
+          <a
+            href="#kham-pha"
+            class="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/80 px-6 py-3 font-medium text-stone-800 transition hover:bg-white dark:border-stone-700 dark:bg-stone-900/80 dark:text-stone-100"
+          >
+            Khám phá ba miền
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  {featured.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <div class="mb-8 flex items-end justify-between">
+        <div>
+          <p class="text-sm font-medium uppercase tracking-widest text-brand-600 dark:text-brand-400">Nổi bật</p>
+          <h2 class="font-display text-3xl font-bold text-stone-900 sm:text-4xl dark:text-stone-100">
+            Món tinh hoa nhất định phải thử
+          </h2>
+        </div>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((recipe) => (
+          <RecipeCard
+            href={`${base}/recipes/${recipe.id}`}
+            title={recipe.data.title}
+            description={recipe.data.description}
+            region={recipe.data.region}
+            meal={recipe.data.meal}
+            difficulty={recipe.data.difficulty}
+            prepTime={recipe.data.prepTime}
+            cookTime={recipe.data.cookTime}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Browse by region -->
+  <section id="kham-pha" class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <p class="text-sm font-medium uppercase tracking-widest text-brand-600 dark:text-brand-400">Theo vùng miền</p>
+    <h2 class="mb-8 font-display text-3xl font-bold text-stone-900 sm:text-4xl dark:text-stone-100">
+      Mỗi miền, một bản sắc
+    </h2>
+
+    <div class="grid gap-4 sm:grid-cols-3">
+      {(['bac', 'trung', 'nam'] as const).map((region) => (
+        <a
+          href={`${base}/mien/${region}`}
+          class="group relative overflow-hidden rounded-2xl bg-gradient-to-br p-8 text-white shadow-lg transition hover:scale-[1.02]"
+          class:list={[
+            region === 'bac' && 'from-emerald-600 to-teal-700',
+            region === 'trung' && 'from-rose-600 to-orange-700',
+            region === 'nam' && 'from-amber-500 to-yellow-700',
+          ]}
+        >
+          <div class="text-5xl">{region === 'bac' ? '🥢' : region === 'trung' ? '🌶️' : '🌴'}</div>
+          <h3 class="mt-4 font-display text-2xl font-bold">{REGION_LABELS[region]}</h3>
+          <p class="mt-2 text-sm opacity-90">{byRegion[region].length} công thức</p>
+          <p class="mt-4 text-sm opacity-80">
+            {region === 'bac' && 'Tinh tế, thanh tao với nước dùng trong và vị nhẹ nhàng.'}
+            {region === 'trung' && 'Đậm đà, cay nồng — đặc trưng Huế, Quảng Nam, Đà Nẵng.'}
+            {region === 'nam' && 'Ngọt béo, đa dạng — nhiều dừa, đường thốt nốt và rau đồng.'}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Browse by meal -->
+  <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <p class="text-sm font-medium uppercase tracking-widest text-brand-600 dark:text-brand-400">Theo bữa ăn</p>
+    <h2 class="mb-8 font-display text-3xl font-bold text-stone-900 sm:text-4xl dark:text-stone-100">
+      Bạn đang cần nấu cho bữa nào?
+    </h2>
+    <div class="flex flex-wrap gap-3">
+      {meals.map((meal) => {
+        const count = recipes.filter((r) => r.data.meal === meal).length;
+        return (
+          <a
+            href={`${base}/bua/${meal}`}
+            class="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-2.5 font-medium text-stone-800 transition hover:border-brand-400 hover:bg-brand-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:bg-stone-800"
+          >
+            {MEAL_LABELS[meal]}
+            <span class="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600 dark:bg-stone-800 dark:text-stone-400">
+              {count}
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- All recipes -->
+  <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <h2 class="mb-8 font-display text-3xl font-bold text-stone-900 sm:text-4xl dark:text-stone-100">
+      Tất cả công thức
+    </h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {recipes.map((recipe) => (
+        <RecipeCard
+          href={`${base}/recipes/${recipe.id}`}
+          title={recipe.data.title}
+          description={recipe.data.description}
+          region={recipe.data.region}
+          meal={recipe.data.meal}
+          difficulty={recipe.data.difficulty}
+          prepTime={recipe.data.prepTime}
+          cookTime={recipe.data.cookTime}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

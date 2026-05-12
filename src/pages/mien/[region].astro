@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { REGION_LABELS } from '../../content.config';
+
+export async function getStaticPaths() {
+  const all = await getCollection('recipes');
+  const regions = ['bac', 'trung', 'nam', 'ca-nuoc'] as const;
+
+  return regions.map((region) => ({
+    params: { region },
+    props: { recipes: all.filter((r) => r.data.region === region) },
+  }));
+}
+
+const { region } = Astro.params;
+const { recipes } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const regionDesc: Record<string, string> = {
+  bac: 'Ẩm thực miền Bắc tinh tế, thanh tao với nước dùng trong vắt và gia vị nhẹ nhàng. Hà Nội là cái nôi của phở, bún chả và chả cá Lã Vọng nổi tiếng.',
+  trung: 'Ẩm thực miền Trung đậm đà, cay nồng — đặc biệt là Huế, Quảng Nam và Đà Nẵng. Mắm ruốc, sa tế và sả là những gia vị đặc trưng.',
+  nam: 'Ẩm thực miền Nam ngọt béo, đa dạng và phóng khoáng. Nhiều nước cốt dừa, đường thốt nốt, rau đồng — phản ánh sự trù phú của vùng đồng bằng sông Cửu Long.',
+  'ca-nuoc': 'Các món ăn phổ biến khắp ba miền Việt Nam.',
+};
+---
+
+<BaseLayout title={`${REGION_LABELS[region]} — FoodVN`} description={regionDesc[region]}>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <nav class="mb-6 flex items-center gap-2 text-sm text-stone-500">
+      <a href={`${base}/`} class="hover:text-brand-600">Trang chủ</a>
+      <span>/</span>
+      <span class="text-stone-700 dark:text-stone-300">{REGION_LABELS[region]}</span>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="font-display text-4xl font-bold leading-tight text-stone-900 sm:text-5xl dark:text-stone-100">
+        Món ăn {REGION_LABELS[region]}
+      </h1>
+      <p class="mt-4 max-w-3xl text-lg text-stone-600 dark:text-stone-400">{regionDesc[region]}</p>
+      <p class="mt-4 text-sm text-stone-500">{recipes.length} công thức</p>
+    </header>
+
+    {recipes.length === 0 ? (
+      <p class="text-stone-500">Chưa có công thức nào trong mục này.</p>
+    ) : (
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {recipes.map((recipe) => (
+          <RecipeCard
+            href={`${base}/recipes/${recipe.id}`}
+            title={recipe.data.title}
+            description={recipe.data.description}
+            region={recipe.data.region}
+            meal={recipe.data.meal}
+            difficulty={recipe.data.difficulty}
+            prepTime={recipe.data.prepTime}
+            cookTime={recipe.data.cookTime}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

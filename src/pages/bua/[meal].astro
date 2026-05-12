@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { MEAL_LABELS } from '../../content.config';
+
+export async function getStaticPaths() {
+  const all = await getCollection('recipes');
+  const meals = ['sang', 'trua', 'toi', 'trang-mieng', 'an-vat'] as const;
+
+  return meals.map((meal) => ({
+    params: { meal },
+    props: { recipes: all.filter((r) => r.data.meal === meal) },
+  }));
+}
+
+const { meal } = Astro.params;
+const { recipes } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const mealDesc: Record<string, string> = {
+  sang: 'Bữa sáng Việt Nam phong phú với phở, bánh cuốn, bánh mì, cơm tấm — đầy năng lượng cho ngày mới.',
+  trua: 'Bữa trưa truyền thống thường là cơm hoặc bún với các món chính đậm đà.',
+  toi: 'Bữa tối là dịp gia đình quây quần, ăn các món cầu kỳ hơn như lẩu, cá kho hoặc chả cá.',
+  'trang-mieng': 'Chè, bánh flan, hoa quả — món ngọt khép lại bữa ăn ngọt ngào.',
+  'an-vat': 'Bánh xèo, gỏi cuốn, nem lụi — món vặt và món nhâm nhi đầy phong phú.',
+};
+---
+
+<BaseLayout title={`${MEAL_LABELS[meal]} — FoodVN`} description={mealDesc[meal]}>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <nav class="mb-6 flex items-center gap-2 text-sm text-stone-500">
+      <a href={`${base}/`} class="hover:text-brand-600">Trang chủ</a>
+      <span>/</span>
+      <span class="text-stone-700 dark:text-stone-300">{MEAL_LABELS[meal]}</span>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="font-display text-4xl font-bold leading-tight text-stone-900 sm:text-5xl dark:text-stone-100">
+        {MEAL_LABELS[meal]}
+      </h1>
+      <p class="mt-4 max-w-3xl text-lg text-stone-600 dark:text-stone-400">{mealDesc[meal]}</p>
+      <p class="mt-4 text-sm text-stone-500">{recipes.length} công thức</p>
+    </header>
+
+    {recipes.length === 0 ? (
+      <p class="text-stone-500">Chưa có công thức nào trong mục này.</p>
+    ) : (
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {recipes.map((recipe) => (
+          <RecipeCard
+            href={`${base}/recipes/${recipe.id}`}
+            title={recipe.data.title}
+            description={recipe.data.description}
+            region={recipe.data.region}
+            meal={recipe.data.meal}
+            difficulty={recipe.data.difficulty}
+            prepTime={recipe.data.prepTime}
+            cookTime={recipe.data.cookTime}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

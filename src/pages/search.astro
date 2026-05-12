@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Tìm kiếm món ăn — FoodVN" description="Tìm kiếm các công thức món ăn Việt Nam theo tên, nguyên liệu hoặc vùng miền.">
+  <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+    <header class="mb-8">
+      <h1 class="font-display text-4xl font-bold leading-tight text-stone-900 sm:text-5xl dark:text-stone-100">
+        Tìm kiếm món ăn
+      </h1>
+      <p class="mt-4 text-lg text-stone-600 dark:text-stone-400">
+        Tìm công thức theo tên món, nguyên liệu, vùng miền hoặc kỹ thuật nấu.
+      </p>
+    </header>
+
+    <div id="search"></div>
+
+    <noscript>
+      <p class="mt-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+        Trình tìm kiếm cần JavaScript. Bạn có thể duyệt danh sách công thức tại
+        <a href={`${base}/`} class="underline">trang chủ</a>.
+      </p>
+    </noscript>
+  </section>
+
+  <!-- Pagefind UI (chỉ chạy sau khi build, không có ở dev mode) -->
+  <link
+    href={`${base}/pagefind/pagefind-ui.css`}
+    rel="stylesheet"
+  />
+  <script is:inline src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/pagefind/pagefind-ui.js`}></script>
+  <script is:inline define:vars={{ base }}>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof PagefindUI !== 'undefined') {
+        new PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          showImages: false,
+          translations: {
+            placeholder: 'Tìm món ăn, nguyên liệu...',
+            clear_search: 'Xoá',
+            load_more: 'Xem thêm kết quả',
+            search_label: 'Tìm trong trang web',
+            filters_label: 'Bộ lọc',
+            zero_results: 'Không tìm thấy kết quả cho [SEARCH_TERM]',
+            many_results: '[COUNT] kết quả cho [SEARCH_TERM]',
+            one_result: 'Một kết quả cho [SEARCH_TERM]',
+            alt_search: 'Không có kết quả cho [SEARCH_TERM]. Hiển thị kết quả tương tự cho [DIFFERENT_TERM]',
+            search_suggestion: 'Không có kết quả cho [SEARCH_TERM]. Thử tìm:',
+            searching: 'Đang tìm [SEARCH_TERM]...',
+          },
+        });
+      } else {
+        document.getElementById('search').innerHTML =
+          '<p class="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">Pagefind chưa được build. Chạy <code>npm run build</code> rồi <code>npm run preview</code> để xem search hoạt động.</p>';
+      }
+    });
+  </script>
+
+  <style is:global>
+    :root {
+      --pagefind-ui-primary: #ea580c;
+      --pagefind-ui-text: #292524;
+      --pagefind-ui-background: #ffffff;
+      --pagefind-ui-border: #e7e5e4;
+      --pagefind-ui-tag: #fff7ed;
+      --pagefind-ui-border-radius: 12px;
+      --pagefind-ui-border-width: 1px;
+      --pagefind-ui-font: 'Be Vietnam Pro', sans-serif;
+    }
+    .dark {
+      --pagefind-ui-text: #f5f5f4;
+      --pagefind-ui-background: #1c1917;
+      --pagefind-ui-border: #44403c;
+      --pagefind-ui-tag: #292524;
+    }
+  </style>
+</BaseLayout>

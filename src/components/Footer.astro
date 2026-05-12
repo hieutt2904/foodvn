@@ -1,0 +1,36 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+---
+
+<footer class="no-print mt-20 border-t border-stone-200 bg-amber-100/50 dark:border-stone-800 dark:bg-stone-900/40">
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div class="grid gap-8 md:grid-cols-3">
+      <div>
+        <h3 class="font-display text-lg font-bold text-brand-700 dark:text-brand-300">FoodVN</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">
+          Cẩm nang món ăn Việt Nam — gìn giữ và lan toả ẩm thực ba miền cho thế hệ sau.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wide text-stone-500">Khám phá</h4>
+        <ul class="mt-2 space-y-1 text-sm">
+          <li><a href={`${base}/mien/bac`} class="hover:text-brand-600">Món miền Bắc</a></li>
+          <li><a href={`${base}/mien/trung`} class="hover:text-brand-600">Món miền Trung</a></li>
+          <li><a href={`${base}/mien/nam`} class="hover:text-brand-600">Món miền Nam</a></li>
+          <li><a href={`${base}/bua/trang-mieng`} class="hover:text-brand-600">Tráng miệng</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wide text-stone-500">Về dự án</h4>
+        <ul class="mt-2 space-y-1 text-sm">
+          <li><a href={`${base}/gioi-thieu`} class="hover:text-brand-600">Giới thiệu</a></li>
+          <li><a href={`${base}/search`} class="hover:text-brand-600">Tìm kiếm món ăn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-8 border-t border-stone-200 pt-4 text-center text-xs text-stone-500 dark:border-stone-800">
+      © {year} FoodVN · Trang web tĩnh xây dựng bằng Astro & Tailwind
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,84 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  { href: `${base}/`, label: 'Trang chủ' },
+  { href: `${base}/mien/bac`, label: 'Miền Bắc' },
+  { href: `${base}/mien/trung`, label: 'Miền Trung' },
+  { href: `${base}/mien/nam`, label: 'Miền Nam' },
+  { href: `${base}/search`, label: 'Tìm kiếm' },
+  { href: `${base}/gioi-thieu`, label: 'Giới thiệu' },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="no-print sticky top-0 z-40 border-b border-stone-200/70 bg-amber-50/85 backdrop-blur dark:border-stone-800 dark:bg-stone-950/85">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <a href={`${base}/`} class="group flex items-center gap-2">
+      <span class="text-2xl">🍜</span>
+      <span class="font-display text-xl font-bold text-brand-700 transition group-hover:text-brand-500 dark:text-brand-300">
+        FoodVN
+      </span>
+    </a>
+
+    <nav class="hidden md:block">
+      <ul class="flex items-center gap-1 text-sm font-medium">
+        {links.map((link) => {
+          const normalized = link.href.replace(/\/$/, '') || '/';
+          const isActive = currentPath === normalized;
+          return (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  'rounded-full px-3 py-1.5 transition',
+                  isActive
+                    ? 'bg-brand-600 text-white'
+                    : 'text-stone-700 hover:bg-stone-200 dark:text-stone-200 dark:hover:bg-stone-800',
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        aria-label="Mở menu"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full text-stone-700 hover:bg-stone-200 md:hidden dark:text-stone-200 dark:hover:bg-stone-800"
+      >
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-stone-200 md:hidden dark:border-stone-800">
+    <ul class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 text-sm font-medium">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="block rounded-lg px-3 py-2 text-stone-700 hover:bg-stone-200 dark:text-stone-200 dark:hover:bg-stone-800"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script is:inline>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

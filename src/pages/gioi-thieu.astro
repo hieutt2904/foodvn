@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Giới thiệu — FoodVN" description="Về dự án cẩm nang món ăn Việt Nam.">
+  <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <header class="mb-10">
+      <h1 class="font-display text-4xl font-bold leading-tight text-stone-900 sm:text-5xl dark:text-stone-100">
+        Về FoodVN
+      </h1>
+      <p class="mt-4 text-lg text-stone-600 dark:text-stone-400">
+        Một cuốn cẩm nang số ghi lại tinh hoa ẩm thực Việt Nam — từ phố cổ Hà Nội đến chợ nổi miền Tây.
+      </p>
+    </header>
+
+    <div class="prose prose-stone max-w-none dark:prose-invert">
+      <h2 class="font-display">Tại sao có dự án này?</h2>
+      <p>
+        Ẩm thực Việt Nam là một di sản phi vật thể vô giá — đa dạng, tinh tế và đậm đà bản sắc.
+        Mỗi vùng miền có một "ngôn ngữ" hương vị riêng: miền Bắc thanh tao, miền Trung cay nồng đậm đà,
+        miền Nam ngọt béo phóng khoáng. FoodVN ra đời như một cuốn sổ tay ẩm thực, giúp bạn dễ dàng
+        nấu lại những món ăn truyền thống ngay tại nhà.
+      </p>
+
+      <h2 class="font-display">Có gì trong FoodVN?</h2>
+      <ul>
+        <li>Hơn 17 công thức món ăn ba miền Bắc – Trung – Nam.</li>
+        <li>Mỗi công thức có đầy đủ: nguyên liệu định lượng, từng bước nấu chi tiết, mẹo bếp.</li>
+        <li>Phân loại theo vùng miền và bữa ăn (sáng, trưa, tối, tráng miệng, ăn vặt).</li>
+        <li>Tìm kiếm nhanh theo tên món, nguyên liệu hoặc kỹ thuật.</li>
+        <li>Giao diện sáng/tối, in công thức ra giấy như một cuốn sách thật.</li>
+      </ul>
+
+      <h2 class="font-display">Công nghệ</h2>
+      <p>
+        Trang web được xây dựng bằng <strong>Astro</strong> (SSG) và <strong>Tailwind CSS</strong>,
+        tìm kiếm bằng <strong>Pagefind</strong> (chạy hoàn toàn ở phía trình duyệt, không cần backend).
+        Toàn bộ là HTML tĩnh, deploy miễn phí trên <strong>GitHub Pages</strong> qua GitHub Actions.
+      </p>
+
+      <h2 class="font-display">Đóng góp công thức</h2>
+      <p>
+        Bạn có công thức gia truyền muốn chia sẻ? Đây là dự án mã nguồn mở — gửi pull request
+        thêm file Markdown vào thư mục <code>src/content/recipes/</code> trên GitHub.
+      </p>
+
+      <div class="not-prose mt-8">
+        <a
+          href={`${base}/`}
+          class="inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 font-medium text-white transition hover:bg-brand-700"
+        >
+          ← Quay về trang chủ
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
