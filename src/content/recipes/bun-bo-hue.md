@@ -10,6 +10,7 @@ cookTime: 180
 servings: 6
 featured: true
 tags: [bun, mon-nuoc, bo, hue, cay]
+imagePrompt: 'Vietnamese bun bo Hue, spicy beef noodle soup with deep red lemongrass chili broth, thick round rice noodles, slices of beef shank and pork knuckle, banana blossom and herbs, Hue royal cuisine'
 ingredients:
   - { name: Xương bò, quantity: '1.5 kg' }
   - { name: Bắp bò, gân bò, quantity: '500 g + 300 g' }

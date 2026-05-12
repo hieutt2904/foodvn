@@ -9,6 +9,7 @@ prepTime: 30
 cookTime: 120
 servings: 4
 tags: [hu-tieu, mon-nuoc, sai-gon, campuchia]
+imagePrompt: 'Vietnamese hu tieu Nam Vang, clear pork bone broth noodle soup with shrimp, sliced char siu pork, pork liver, ground pork, quail eggs and crispy fried garlic, scattered chives and bean sprouts on top'
 ingredients:
   - { name: Sợi hủ tiếu dai, quantity: '500 g' }
   - { name: Xương ống heo, quantity: '1 kg' }

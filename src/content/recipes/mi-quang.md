@@ -9,6 +9,7 @@ prepTime: 30
 cookTime: 60
 servings: 4
 tags: [mi, quang-nam, da-nang]
+imagePrompt: 'Vietnamese mi Quang, wide yellow turmeric rice noodles with shrimp, pork and quail eggs, topped with crushed roasted peanuts and crispy sesame rice cracker, fresh herbs, central Vietnam Da Nang style'
 ingredients:
   - { name: Mì Quảng tươi (sợi to vàng), quantity: '600 g' }
   - { name: Thịt ba chỉ, tôm tươi, quantity: '300 g + 300 g' }

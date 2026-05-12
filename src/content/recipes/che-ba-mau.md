@@ -9,6 +9,7 @@ prepTime: 20
 cookTime: 45
 servings: 4
 tags: [che, trang-mieng, mat-lanh]
+imagePrompt: 'Vietnamese che ba mau three-color dessert in tall glass, distinct layers of red kidney beans, mashed yellow mung beans and green pandan jelly cubes, topped with coconut milk and crushed ice, tropical southern Vietnam'
 ingredients:
   - { name: Đậu xanh đãi vỏ, quantity: '150 g' }
   - { name: Đậu đỏ (đậu adzuki), quantity: '150 g' }

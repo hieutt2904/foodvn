@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RecipeCard from '../components/RecipeCard.astro';
 import { REGION_LABELS, MEAL_LABELS } from '../content.config';
+import { pollinationsUrl, recipeImageUrl } from '../utils/images';
 
 const recipes = await getCollection('recipes');
 const featured = recipes.filter((r) => r.data.featured);
@@ -15,21 +16,51 @@ const byRegion = {
 };
 
 const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mieng', 'an-vat'];
+
+const heroImage = pollinationsUrl(
+  'Vietnamese cuisine feast on rustic wooden table, top-down flat lay, pho, banh mi, fresh spring rolls, bun cha, banh xeo, traditional ceramic bowls and chopsticks, vibrant herbs and chili peppers, market style abundance',
+  { width: 1920, height: 1080, seed: 71429 },
+);
+
+const regionImages = {
+  bac: pollinationsUrl(
+    'Northern Vietnamese cuisine spread, steaming pho bo bowl and bun cha with grilled pork, Hanoi old quarter street food, autumn light',
+    { width: 800, height: 600, seed: 11111 },
+  ),
+  trung: pollinationsUrl(
+    'Central Vietnamese cuisine spread, fiery red bun bo Hue and yellow mi Quang on table, Hue imperial cuisine vibe, dramatic red and orange tones',
+    { width: 800, height: 600, seed: 22222 },
+  ),
+  nam: pollinationsUrl(
+    'Southern Vietnamese cuisine spread, com tam broken rice plate and banh mi sandwich, Saigon street food, tropical bright sunlight, coconut and chili',
+    { width: 800, height: 600, seed: 33333 },
+  ),
+};
 ---
 
 <BaseLayout title="FoodVN — Cẩm nang món ăn Việt Nam">
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-brand-100 via-amber-50 to-rose-100 dark:from-stone-900 dark:via-stone-950 dark:to-brand-950"></div>
-    <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-      <div class="max-w-3xl">
-        <p class="mb-3 text-sm font-medium uppercase tracking-widest text-brand-600 dark:text-brand-400">
+  <!-- Hero with banner image -->
+  <section class="relative isolate overflow-hidden">
+    <img
+      src={heroImage}
+      alt="Cẩm nang ẩm thực Việt Nam"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    <!-- Overlay tối để chữ rõ trên ảnh -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-stone-950/85 via-stone-950/65 to-stone-950/30"></div>
+
+    <div class="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:py-40">
+      <div class="max-w-2xl text-white">
+        <p class="mb-3 text-sm font-medium uppercase tracking-widest text-brand-300">
           Cẩm nang ẩm thực Việt
         </p>
-        <h1 class="font-display text-5xl font-bold leading-tight text-stone-900 sm:text-6xl dark:text-stone-100">
-          Hương vị <span class="text-brand-600 dark:text-brand-400">ba miền</span><br />trong căn bếp của bạn
+        <h1 class="font-display text-5xl font-bold leading-tight drop-shadow-2xl sm:text-6xl lg:text-7xl">
+          Hương vị <span class="text-brand-400">ba miền</span><br />trong căn bếp của bạn
         </h1>
-        <p class="mt-6 text-lg text-stone-700 sm:text-xl dark:text-stone-300">
+        <p class="mt-6 max-w-xl text-lg text-stone-200 drop-shadow sm:text-xl">
           {recipes.length} công thức món ăn Việt Nam được biên soạn cẩn thận — từ phở Hà Nội,
           bún bò Huế đến cơm tấm Sài Gòn. Đầy đủ nguyên liệu, từng bước và mẹo bếp.
         </p>
@@ -46,7 +77,7 @@ const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mi
           </a>
           <a
             href="#kham-pha"
-            class="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/80 px-6 py-3 font-medium text-stone-800 transition hover:bg-white dark:border-stone-700 dark:bg-stone-900/80 dark:text-stone-100"
+            class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 font-medium text-white backdrop-blur transition hover:bg-white/20"
           >
             Khám phá ba miền
           </a>
@@ -67,7 +98,7 @@ const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mi
         </div>
       </div>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {featured.map((recipe) => (
+        {featured.map((recipe, i) => (
           <RecipeCard
             href={`${base}/recipes/${recipe.id}`}
             title={recipe.data.title}
@@ -77,6 +108,8 @@ const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mi
             difficulty={recipe.data.difficulty}
             prepTime={recipe.data.prepTime}
             cookTime={recipe.data.cookTime}
+            image={recipeImageUrl(recipe, { width: 800, height: 500 })}
+            eager={i < 3}
           />
         ))}
       </div>
@@ -94,21 +127,28 @@ const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mi
       {(['bac', 'trung', 'nam'] as const).map((region) => (
         <a
           href={`${base}/mien/${region}`}
-          class="group relative overflow-hidden rounded-2xl bg-gradient-to-br p-8 text-white shadow-lg transition hover:scale-[1.02]"
-          class:list={[
-            region === 'bac' && 'from-emerald-600 to-teal-700',
-            region === 'trung' && 'from-rose-600 to-orange-700',
-            region === 'nam' && 'from-amber-500 to-yellow-700',
-          ]}
+          class="group relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
         >
-          <div class="text-5xl">{region === 'bac' ? '🥢' : region === 'trung' ? '🌶️' : '🌴'}</div>
-          <h3 class="mt-4 font-display text-2xl font-bold">{REGION_LABELS[region]}</h3>
-          <p class="mt-2 text-sm opacity-90">{byRegion[region].length} công thức</p>
-          <p class="mt-4 text-sm opacity-80">
-            {region === 'bac' && 'Tinh tế, thanh tao với nước dùng trong và vị nhẹ nhàng.'}
-            {region === 'trung' && 'Đậm đà, cay nồng — đặc trưng Huế, Quảng Nam, Đà Nẵng.'}
-            {region === 'nam' && 'Ngọt béo, đa dạng — nhiều dừa, đường thốt nốt và rau đồng.'}
-          </p>
+          <img
+            src={regionImages[region]}
+            alt={REGION_LABELS[region]}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent"></div>
+          <div class="absolute inset-0 flex flex-col justify-end p-6 text-white">
+            <p class="text-sm uppercase tracking-widest opacity-80">{byRegion[region].length} công thức</p>
+            <h3 class="mt-1 font-display text-3xl font-bold drop-shadow-lg">{REGION_LABELS[region]}</h3>
+            <p class="mt-2 text-sm opacity-90">
+              {region === 'bac' && 'Tinh tế, thanh tao với nước dùng trong.'}
+              {region === 'trung' && 'Đậm đà, cay nồng — đặc sản Huế, Đà Nẵng.'}
+              {region === 'nam' && 'Ngọt béo, đa dạng — đậm chất miền Tây.'}
+            </p>
+            <span class="mt-3 inline-flex w-fit items-center gap-1 text-sm font-medium text-brand-300 transition group-hover:gap-2">
+              Xem món <span aria-hidden>→</span>
+            </span>
+          </div>
         </a>
       ))}
     </div>
@@ -154,6 +194,7 @@ const meals: Array<keyof typeof MEAL_LABELS> = ['sang', 'trua', 'toi', 'trang-mi
           difficulty={recipe.data.difficulty}
           prepTime={recipe.data.prepTime}
           cookTime={recipe.data.cookTime}
+          image={recipeImageUrl(recipe, { width: 800, height: 500 })}
         />
       ))}
     </div>

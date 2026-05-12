@@ -1,8 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RecipeCard from '../../components/RecipeCard.astro';
 import { REGION_LABELS } from '../../content.config';
+import { recipeImageUrl } from '../../utils/images';
 
 export async function getStaticPaths() {
   const all = await getCollection('recipes');
@@ -10,8 +11,12 @@ export async function getStaticPaths() {
 
   return regions.map((region) => ({
     params: { region },
-    props: { recipes: all.filter((r) => r.data.region === region) },
+    props: { recipes: all.filter((r: CollectionEntry<'recipes'>) => r.data.region === region) },
   }));
+}
+
+interface Props {
+  recipes: CollectionEntry<'recipes'>[];
 }
 
 const { region } = Astro.params;
@@ -56,6 +61,7 @@ const regionDesc: Record<string, string> = {
             difficulty={recipe.data.difficulty}
             prepTime={recipe.data.prepTime}
             cookTime={recipe.data.cookTime}
+            image={recipeImageUrl(recipe, { width: 800, height: 500 })}
           />
         ))}
       </div>

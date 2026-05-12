@@ -9,6 +9,7 @@ prepTime: 15
 cookTime: 45
 servings: 6
 tags: [flan, caramel, trang-mieng]
+imagePrompt: 'Vietnamese banh flan caramel custard, silky smooth yellow custard pudding inverted on white plate, glossy dark caramel sauce dripping down sides, small spoon beside, elegant dessert presentation'
 ingredients:
   - { name: Trứng gà, quantity: '5 quả' }
   - { name: Sữa tươi không đường, quantity: '500 ml' }

@@ -9,6 +9,7 @@ prepTime: 30
 cookTime: 30
 servings: 4
 tags: [banh, ran, an-vat]
+imagePrompt: 'Vietnamese banh xeo, crispy golden turmeric rice flour crepe folded in half, filled with shrimp, pork and bean sprouts, served with fresh lettuce, herbs and fish sauce dipping bowl, central Vietnam style'
 ingredients:
   - { name: Bột bánh xèo (hoặc bột gạo + bột chiên giòn), quantity: '300 g' }
   - { name: Nước cốt dừa, quantity: '200 ml' }

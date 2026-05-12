@@ -9,6 +9,7 @@ prepTime: 45
 cookTime: 120
 servings: 4
 tags: [bun, mon-nuoc, ha-noi]
+imagePrompt: 'Vietnamese bun thang Hanoi, vermicelli noodle soup in clear golden broth, beautifully arranged shredded chicken, thinly sliced egg omelet, julienned cha lua sausage, dried shrimp floss, garnished with herbs'
 ingredients:
   - { name: Xương gà, gà ta nguyên con, quantity: '500 g + 1 con (1.5 kg)' }
   - { name: Tôm khô, mực khô (nướng), quantity: '50 g + 1 con nhỏ' }

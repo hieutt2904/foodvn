@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { REGION_LABELS, MEAL_LABELS, DIFFICULTY_LABELS } from '../../content.config';
+import { recipeImageUrl } from '../../utils/images';
 
 export async function getStaticPaths() {
   const recipes = await getCollection('recipes');
@@ -16,9 +17,28 @@ const { Content } = await render(recipe);
 const data = recipe.data;
 const totalTime = data.prepTime + data.cookTime;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const heroImage = recipeImageUrl(recipe, { width: 1600, height: 900 });
 ---
 
 <BaseLayout title={`${data.title} — FoodVN`} description={data.description}>
+  <!-- Hero image -->
+  <div class="no-print relative h-72 w-full overflow-hidden sm:h-96 lg:h-[28rem]">
+    <img
+      src={heroImage}
+      alt={data.title}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/40 to-stone-950/20"></div>
+    <div class="absolute inset-x-0 bottom-0 mx-auto max-w-4xl px-4 pb-8 text-white sm:px-6">
+      <h1 class="font-display text-4xl font-bold leading-tight drop-shadow-2xl sm:text-5xl lg:text-6xl">
+        {data.title}
+      </h1>
+    </div>
+  </div>
+
   <article class="recipe-content mx-auto max-w-4xl px-4 py-10 sm:px-6" data-pagefind-body>
     <!-- Breadcrumb -->
     <nav class="no-print mb-6 flex items-center gap-2 text-sm text-stone-500">
@@ -44,7 +64,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           Độ khó: {DIFFICULTY_LABELS[data.difficulty]}
         </span>
       </div>
-      <h1 class="font-display text-4xl font-bold leading-tight text-stone-900 sm:text-5xl dark:text-stone-100">
+      <h1 class="print:block hidden font-display text-3xl font-bold text-stone-900 dark:text-stone-100">
         {data.title}
       </h1>
       <p class="mt-4 text-lg text-stone-600 dark:text-stone-400">{data.description}</p>

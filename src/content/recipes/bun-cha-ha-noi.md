@@ -10,6 +10,7 @@ cookTime: 25
 servings: 4
 featured: true
 tags: [bun, thit-nuong, ha-noi]
+imagePrompt: 'Vietnamese bun cha, char-grilled pork patties and pork belly slices in fish sauce dipping bowl, vermicelli noodles, fresh lettuce and herbs, pickled green papaya, Hanoi street food'
 ingredients:
   - { name: Thịt ba chỉ, quantity: '400 g' }
   - { name: Thịt nạc vai (để viên), quantity: '300 g' }

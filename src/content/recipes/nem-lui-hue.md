@@ -9,6 +9,7 @@ prepTime: 40
 cookTime: 20
 servings: 4
 tags: [nem, thit-nuong, hue]
+imagePrompt: 'Vietnamese nem lui Hue, grilled minced pork skewers on lemongrass stalks with charred smoky surface, served with rice paper, fresh herbs, green banana, star fruit and peanut dipping sauce'
 ingredients:
   - { name: Thịt nạc vai xay, quantity: '500 g' }
   - { name: Mỡ heo (luộc chín, băm hạt lựu), quantity: '100 g' }

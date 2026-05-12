@@ -10,6 +10,7 @@ cookTime: 360
 servings: 6
 featured: true
 tags: [pho, mon-nuoc, bo, truyen-thong]
+imagePrompt: 'Vietnamese pho bo, beef noodle soup in white ceramic bowl, thinly sliced rare beef, rice noodles, fresh herbs and scallions, lime wedges, bean sprouts, Hanoi street food style, steaming hot'
 ingredients:
   - { name: Xương ống bò, quantity: '2 kg' }
   - { name: Thịt nạm bò (hoặc gầu, gân), quantity: '500 g' }

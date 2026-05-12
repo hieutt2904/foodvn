@@ -23,6 +23,8 @@ const recipes = defineCollection({
     tips: z.string().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    image: z.string().optional().describe('URL ảnh — để trống sẽ dùng AI sinh từ imagePrompt'),
+    imagePrompt: z.string().optional().describe('Prompt mô tả ảnh cho AI (tiếng Anh sẽ ra kết quả tốt hơn)'),
   }),
 });
 

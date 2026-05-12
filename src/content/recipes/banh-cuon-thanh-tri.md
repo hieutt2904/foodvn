@@ -9,6 +9,7 @@ prepTime: 30
 cookTime: 30
 servings: 4
 tags: [banh, sang, ha-noi]
+imagePrompt: 'Vietnamese banh cuon Thanh Tri, translucent steamed rice rolls filled with minced pork and wood-ear mushrooms, topped with crispy fried shallots, served with cha lua sausage and herbs'
 ingredients:
   - { name: Bột gạo tẻ, quantity: '200 g' }
   - { name: Bột năng, quantity: '50 g' }

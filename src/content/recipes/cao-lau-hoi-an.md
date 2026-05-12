@@ -9,6 +9,7 @@ prepTime: 30
 cookTime: 90
 servings: 4
 tags: [mi, hoi-an, dac-san]
+imagePrompt: 'Vietnamese cao lau Hoi An, chewy yellow noodles topped with sliced char siu pork, golden fried crouton crackers, bean sprouts and fresh greens, served dry without broth in traditional Hoi An bowl'
 ingredients:
   - { name: Sợi cao lầu (mua sẵn ở Hội An hoặc thay bằng mì udon), quantity: '500 g' }
   - { name: Thịt nạc vai làm xá xíu, quantity: '500 g' }

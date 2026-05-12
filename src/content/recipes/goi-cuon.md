@@ -10,6 +10,7 @@ cookTime: 15
 servings: 4
 featured: true
 tags: [cuon, khai-vi, thanh-mat]
+imagePrompt: 'Vietnamese goi cuon fresh spring rolls, translucent rice paper revealing pink shrimp, sliced pork, vermicelli noodles, lettuce and mint leaves, served with peanut hoisin dipping sauce in small bowl'
 ingredients:
   - { name: Bánh tráng cuốn, quantity: '20 cái' }
   - { name: Tôm sú, quantity: '300 g' }

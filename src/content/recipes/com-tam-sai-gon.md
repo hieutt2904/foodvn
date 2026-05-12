@@ -10,6 +10,7 @@ cookTime: 30
 servings: 4
 featured: true
 tags: [com, suon-nuong, sai-gon]
+imagePrompt: 'Vietnamese com tam Saigon, broken rice plate with grilled lemongrass pork chop, shredded pork skin, steamed egg meatloaf, sunny side up egg, pickled carrots, sliced tomato and cucumber, fish sauce on the side'
 ingredients:
   - { name: Gạo tấm, quantity: '600 g' }
   - { name: Sườn cốt lết heo, quantity: '4 miếng (~800 g)' }

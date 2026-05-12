@@ -9,6 +9,7 @@ prepTime: 60
 cookTime: 20
 servings: 4
 tags: [ca, mam-tom, ha-noi]
+imagePrompt: 'Vietnamese cha ca La Vong, turmeric-marinated golden fish chunks sizzling in cast iron pan with fresh dill and scallions, served with rice vermicelli, peanuts and shrimp paste sauce'
 ingredients:
   - { name: Cá lăng (hoặc cá quả) phi-lê, quantity: '600 g' }
   - { name: Bột nghệ, riềng băm, quantity: '1 muỗng cà phê + 2 muỗng canh' }

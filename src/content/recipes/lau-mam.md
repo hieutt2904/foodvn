@@ -9,6 +9,7 @@ prepTime: 45
 cookTime: 60
 servings: 6
 tags: [lau, mam, mien-tay]
+imagePrompt: 'Vietnamese lau mam Mekong Delta, fermented fish hotpot in clay pot with assorted seafood, fish, shrimp, eggplant and okra, surrounded by mountain of fresh river herbs and water lily stems, southern Vietnam'
 ingredients:
   - { name: Mắm cá linh, mắm cá sặc, quantity: '200 g + 100 g' }
   - { name: Xương heo, quantity: '500 g' }

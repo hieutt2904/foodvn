@@ -10,6 +10,7 @@ cookTime: 10
 servings: 4
 featured: true
 tags: [banh-mi, sang, sai-gon, fast-food]
+imagePrompt: 'Vietnamese banh mi sandwich, crusty golden baguette cross-section showing pate, grilled pork, cha lua sausage, pickled carrots and daikon, fresh cilantro and jalapeno slices, Saigon street food'
 ingredients:
   - { name: Bánh mì Việt Nam (ổ giòn), quantity: '4 ổ' }
   - { name: Pate gan, quantity: '150 g' }
